@@ -1,0 +1,38 @@
+# Dos contenedores:
+#   db  -> PostgreSQL 17 con la extensión pgvector (práctica 2)
+#   lab -> Python con DuckDB, psycopg y numpy, donde corren los scripts
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: practica
+      POSTGRES_PASSWORD: practica
+      POSTGRES_DB: practica
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U practica -d practica"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  lab:
+    build: ./lab
+    working_dir: /practica
+    volumes:
+      - .:/practica
+    environment:
+      PGHOST: db
+      PGPORT: "5432"
+      PGUSER: practica
+      PGPASSWORD: practica
+      PGDATABASE: practica
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

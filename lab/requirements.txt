@@ -1,0 +1,4 @@
+duckdb>=1.1
+numpy>=1.26
+psycopg[binary]>=3.2
+pgvector>=0.3
