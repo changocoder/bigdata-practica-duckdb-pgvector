@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: practica
       POSTGRES_DB: practica
     ports:
-      - "5432:5432"
+      - "5433:5432"   # 5433 en tu máquina, por si ya tenés un PostgreSQL en el 5432
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - pgdata:/var/lib/postgresql/data

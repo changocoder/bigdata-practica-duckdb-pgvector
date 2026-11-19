@@ -71,6 +71,8 @@ ORDER BY embedding <-> (SELECT embedding FROM imagen WHERE id = 'img000042')
 LIMIT 5;
 ```
 
+Desde un cliente gráfico (DBeaver, pgAdmin): `localhost`, puerto **5433**, usuario, contraseña y base `practica`.
+
 ## Para pensar
 
 - ¿Por qué Parquet ocupa mucho menos que el CSV, si tiene los mismos datos?
